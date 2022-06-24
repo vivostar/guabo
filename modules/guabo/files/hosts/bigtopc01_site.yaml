@@ -1,0 +1,44 @@
+---
+### This is very important to make sure this file doesn't contain any TAB
+### symbols instead of spaces: the hiera YAML parser will choke to death with
+### uncomprehensive error message and you'll waste a lot of time debugging it.
+bigtop::hadoop_head_node: "bigtopc01"
+#bigtop::standby_head_node: "standby.head.node.fqdn"
+
+hadoop::hadoop_storage_dirs:
+  - /data/1
+
+
+# hadoop_cluster_node::cluster_components:
+#  - hdfs
+#  - yarn
+#  - yarn
+#  - alluxio
+#  - ambari
+#  - flink
+#  - gpdb
+#  - hbase
+#  - hcat
+#  - hive
+#  - httpfs
+#  - mapred-app
+#  - oozie
+#  - solrcloud
+#  - spark
+#  - spark-standalone
+#  - sqoop
+#  - tez
+#  - yarn
+#  - ycsb
+#  - zookeeper
+
+bigtop::roles_enabled: true
+bigtop::roles: 
+  - resourcemanager
+  - namenode
+
+## You can specify one (or more) repositories. It is convenient if
+## you provide hotfix repo separately from the stable release, etc.
+bigtop::bigtop_repo_uri:
+   - "http://repos.bigtop.apache.org/releases/3.1.0/centos/7/$basearch"
+#   - "http://mirror2.example.com/path/to/mirror/"

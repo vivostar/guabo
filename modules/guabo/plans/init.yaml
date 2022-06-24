@@ -1,0 +1,59 @@
+---
+parameters:
+  targets:
+    type: TargetSpec
+  src_hiera: 
+    type: String
+  src_site: 
+    type: String
+
+steps:
+  - name: install_apache
+    task: package
+    targets: $targets
+    parameters:
+      action: install
+      name: git
+    description: "Install Git"
+
+  - name: start_init_script
+    script: guabo/init.sh
+    targets: $targets
+    description: "Init Bigtop"
+
+  - name: pre_install_hadoop_from_bigtop
+    script: guabo/pre_install.sh
+    targets: $targets
+    description: "Pre Install Hadoop From Bigtop"
+  
+  - name: delete_origin_hiera
+    script: guabo/delete_origin_hiera.sh
+    targets: $targets 
+    description: "Delete Origin Hiera"
+
+  - name: upload_hiera_yaml
+    upload: $src_hiera
+    destination: /etc/puppetlabs/code/environments/production/hiera.yaml
+    targets: $targets
+    description: "Upload hiera v5"  
+
+  - name: delete_origin_site
+    script: guabo/delete_origin_site.sh
+    targets: $targets 
+    description: "Delete Origin site.yaml"
+
+  - name: upload_hosts_site_dir
+    upload: $src_site
+    destination: /etc/puppetlabs/code/environments/production/hieradata/bigtop
+    targets: $targets
+    description: "Upload hosts site dir"  
+  
+  - name: puppet_stdlib_install
+    script: guabo/puppet_stdlib_install.sh
+    targets: $targets
+    description: "Puppet Stdlib Install"
+
+  - name: edit_hosts
+    script: guabo/edit_hosts.sh
+    targets: $targets
+    description: "Edit Hosts"

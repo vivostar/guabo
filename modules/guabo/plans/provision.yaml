@@ -1,0 +1,9 @@
+---
+parameters:
+  targets:
+    type: TargetSpec
+steps:
+  - name: bigtop_docker_provision_init 
+    script: guabo/provision/init.sh
+    targets: $targets 
+    description: "Bigtop Docker Provision Init"

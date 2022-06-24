@@ -1,0 +1,9 @@
+---
+parameters:
+  targets:
+    type: TargetSpec
+steps:
+  - name: tmp 
+    script: guabo/install.sh
+    targets: $targets 
+    description: "Tmp"

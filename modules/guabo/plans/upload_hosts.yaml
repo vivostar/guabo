@@ -1,0 +1,18 @@
+---
+parameters:
+  targets:
+    type: TargetSpec
+  src_hosts: 
+    type: String
+
+steps:
+  - name: delete_origin_hosts
+    script: guabo/delete_hosts_dir.sh
+    targets: $targets 
+    description: "Delete Origin Hosts"
+
+  - name: upload_hosts
+    upload: $src_hosts
+    destination: /etc/puppetlabs/code/environments/production/hieradata/bigtop
+    targets: $targets
+    description: "Upload hiera v5"  

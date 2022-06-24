@@ -1,0 +1,24 @@
+---
+parameters:
+  targets:
+    type: TargetSpec
+  src_hiera: 
+    type: String
+
+steps:
+  - name: delete_origin_hiera
+    script: guabo/delete_origin_hiera.sh
+    targets: $targets 
+    description: "Delete Origin Hiera"
+
+  - name: upload_hiera_yaml
+    upload: $src_hiera
+    destination: /etc/puppetlabs/code/environments/production/hiera.yaml
+    targets: $targets
+    description: "Upload hiera v5"  
+
+  - name: install_hadoop_from_bigtop
+    script: guabo/tmp.sh
+    targets: $targets
+    description: "Install Hadoop From Bigtop"
+  
