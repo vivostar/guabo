@@ -1,0 +1,9 @@
+---
+parameters:
+  targets:
+    type: TargetSpec
+steps:
+  - name: docker_superset_init 
+    script: guabo/superset/init.sh
+    targets: $targets 
+    description: "Docker Superset Init"
