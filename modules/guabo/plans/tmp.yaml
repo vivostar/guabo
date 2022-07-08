@@ -4,6 +4,6 @@ parameters:
     type: TargetSpec
 steps:
   - name: tmp 
-    script: guabo/install.sh
+    script: guabo/dev/rs.sh
     targets: $targets 
     description: "Tmp"

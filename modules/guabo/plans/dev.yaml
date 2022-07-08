@@ -1,0 +1,37 @@
+---
+parameters:
+  targets:
+    type: TargetSpec
+ # src_hiera: 
+ #   type: String
+ # src_site: 
+ #   type: String
+
+steps:
+  - name: install_git
+    task: package
+    targets: $targets
+    parameters:
+      action: install
+      name: git
+    description: "Install Git"
+
+  - name: start_init_script
+    script: guabo/dev/init.sh
+    targets: $targets
+    description: "Init Puppet"
+
+  - name: pre_install_hadoop_from_bigtop
+    script: guabo/pre_install.sh
+    targets: $targets
+    description: "Pre Install Hadoop From Bigtop"
+  
+  - name: puppet_stdlib_install
+    script: guabo/dev/puppet_stdlib_install.sh
+    targets: $targets
+    description: "Puppet Stdlib Install"
+
+  - name: edit_hosts
+    script: guabo/dev/edit_hosts.sh
+    targets: $targets
+    description: "Edit Hosts"
